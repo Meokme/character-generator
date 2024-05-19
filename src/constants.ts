@@ -1,3 +1,5 @@
+
+
 export const characterStructure = `{
   firstName: string;
   surname: string;

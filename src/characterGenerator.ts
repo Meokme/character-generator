@@ -1,8 +1,11 @@
-import {characterGeneratorSystemPrompt, systemPromptGeneratorSystemPrompt} from './prompts.js';
-import {askUserInput} from "./utils.js";
+import {characterGeneratorSystemPrompt, systemPromptGeneratorSystemPrompt} from './constants';
+import {askUserInput} from "./utils";
+import readline from "readline";
+import {Ollama} from "ollama";
+import {ExtendedCharacter} from "./types";
 
 const expectedFields = ['firstName', 'surname', 'gender', 'age', 'occupation', 'personalityType', 'traits', 'topicsOfInterest', 'responses', 'mood', 'interests'];
-function validateResponse(response) {
+function validateResponse(response: string): boolean {
   try {
     const character = JSON.parse(response);
     if (typeof character !== 'object') {
@@ -19,22 +22,22 @@ function validateResponse(response) {
   }
 }
 
-export async function generateCharacterAndSystemPrompt(rl, ollama) {
+export async function generateCharacterAndSystemPrompt(rl: readline.Interface, ollama: Ollama): Promise<ExtendedCharacter> {
   let characterDescription = await askUserInput(rl, 'Enter the character to generate: ');
 
-  rl.output.write('Generating character... ');
+  rl.write('Generating character... ');
   const characterString = await generateCharacter(ollama, characterDescription);
   const systemPrompt = await generateSystemPrompt(ollama, characterString);
-  rl.output.write('Done!\n\n');
+  rl.write('Done!\n\n');
 
   return {
     characterString,
-    systemPrompt,
+    messageHistory: [{role: 'system', content: systemPrompt}],
     ...JSON.parse(characterString)
   };
 }
 
-async function generateCharacter(ollama, characterDescription) {
+async function generateCharacter(ollama: Ollama, characterDescription: string): Promise<string> {
   const response = await ollama.generate({
     model: 'llama3',
     prompt: characterDescription,
@@ -46,7 +49,7 @@ async function generateCharacter(ollama, characterDescription) {
   return validateResponse(characterResponse) ? characterResponse : await generateCharacter(ollama, characterDescription);
 }
 
-async function generateSystemPrompt(ollama, characterString) {
+async function generateSystemPrompt(ollama: Ollama, characterString: string): Promise<string> {
   const response = await ollama.generate({
     model: 'llama3',
     prompt: characterString,
