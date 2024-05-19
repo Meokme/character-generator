@@ -1,0 +1,22 @@
+{
+  "name": "character-generator",
+  "version": "0.0.1",
+  "description": "Use LLM to generate characters for a game and give those characters LLMs instructions how to respond to users",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "LLM",
+    "game",
+    "AI",
+    "characters"
+  ],
+  "author": "Dennis Mayer",
+  "license": "MIT",
+  "dependencies": {
+    "ollama": "^0.5.1"
+  }
+}
