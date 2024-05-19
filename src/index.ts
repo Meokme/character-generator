@@ -1,8 +1,8 @@
 import readline from 'readline';
 import {Ollama} from 'ollama';
 import {generateCharacterAndSystemPrompt} from './characterGenerator';
-import {generateGreetingMessage} from './greetingMessageGenerator';
-import {chatWithCharacter} from './characterChat';
+import {startCharacterChat} from './characterChat';
+import {narratorStart} from "./narrator";
 
 (async () => {
   const ollama = new Ollama({host: 'http://localhost:11434'});
@@ -12,7 +12,8 @@ import {chatWithCharacter} from './characterChat';
   });
 
   rl.write('Hello! I am a character generator. I will generate a character for you.\n');
-  const character = await generateCharacterAndSystemPrompt(rl, ollama);
-  await generateGreetingMessage(rl, ollama, character);
-  await chatWithCharacter(rl, ollama, character);
+  const character1 = await generateCharacterAndSystemPrompt(rl, ollama);
+  const character2 = await generateCharacterAndSystemPrompt(rl, ollama);
+  await narratorStart(rl, ollama, character1, character2);
+  await startCharacterChat(rl, ollama, character1, character2);
 })();

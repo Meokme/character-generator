@@ -1,27 +1,22 @@
 export interface Character {
+  race: string;
   firstName: string;
   surname: string;
   gender: string;
   age: number;
   occupation: string;
-
   personalityType: string;
   traits: {
     honest: boolean;
     trustworthy: boolean;
     [key: string]: boolean; // custom traits
   };
-
   topicsOfInterest: string[];
-  responses: {
-    [topicOfInterest: string]: string[];
-  };
-
   mood: string;
   interests: string[];
 }
 
-interface Message {
+export interface Message {
   role: string;
   content: string;
 }
