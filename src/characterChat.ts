@@ -4,7 +4,6 @@ import {Ollama} from "ollama";
 
 import {ExtendedCharacter} from "./types";
 import {chat} from "./ollama";
-import {narratorChat} from "./narrator";
 
 function checkExit(userMessage: string, rl: readline.Interface) {
   if (userMessage === 'exit') {
@@ -67,12 +66,9 @@ export async function startCharacterChat(rl: readline.Interface, ollama: Ollama,
       return;
     }
     // bug: somehow the narrator prevents the characters from chatting (which role should it use?)
-    const character1Message = await characterMessage(rl, ollama, character1);
-    character2.messageHistory.push({role: 'user', content: character1Message});
     const character2Message = await characterMessage(rl, ollama, character2);
     character1.messageHistory.push({role: 'user', content: character2Message});
-    const narratorMessage = await narratorChat(rl, ollama, character1.messageHistory);
-    character1.messageHistory.push({role: 'system', content: narratorMessage});
-    character2.messageHistory.push({role: 'system', content: narratorMessage});
+    const character1Message = await characterMessage(rl, ollama, character1);
+    character2.messageHistory.push({role: 'user', content: character1Message});
   }
 }
