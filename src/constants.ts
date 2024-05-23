@@ -7,7 +7,7 @@ export const characterStructure = `{
   gender: string;
   age: number;
   occupation: string;
-  personalityType: string;
+  personality: string;
   traits: {
     honest: boolean;
     trustworthy: boolean;

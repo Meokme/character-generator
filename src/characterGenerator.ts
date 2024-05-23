@@ -5,7 +5,7 @@ import {Ollama} from "ollama";
 import {ExtendedCharacter} from "./types";
 import {generate} from "./ollama";
 
-const expectedFields = ['race', 'firstName', 'surname', 'gender', 'age', 'occupation', 'personalityType', 'traits', 'topicsOfInterest', 'mood', 'interests'];
+const expectedFields = ['race', 'firstName', 'surname', 'gender', 'age', 'occupation', 'personality', 'traits', 'topicsOfInterest', 'mood', 'interests'];
 function validateResponse(response: string): boolean {
   try {
     const character = JSON.parse(response);
@@ -28,7 +28,9 @@ export async function generateCharacterAndSystemPrompt(rl: readline.Interface, o
 
   rl.write('Generating character... ');
   const characterString = await generateCharacter(ollama, characterDescription);
-  const systemPrompt = `You are representing following character: ${characterString}. Don't write that long messages, maximum 5 sentences.`;
+  const systemPrompt = `You are representing following character in a story: ${characterString}. 
+  Make sure to create a good conversation and bring the story forward. Don't repeat any sentences that were already said.
+  Take care of the length of your sentences, don't talk too much or too less, just make it fit the story.`
   rl.write('Done!\n\n');
 
   return {
