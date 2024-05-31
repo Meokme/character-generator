@@ -1,6 +1,5 @@
 import {characterGeneratorSystemPrompt} from './constants';
-import {askUserInput} from "./utils";
-import readline from "readline";
+import {Interface} from "readline/promises";
 import {Ollama} from "ollama";
 import {ExtendedCharacter} from "./types";
 import {generate} from "./ollama";
@@ -23,14 +22,16 @@ function validateResponse(response: string): boolean {
   }
 }
 
-export async function generateCharacterAndSystemPrompt(rl: readline.Interface, ollama: Ollama): Promise<ExtendedCharacter> {
-  let characterDescription = await askUserInput(rl, 'Enter the character to generate: ');
+export async function generateCharacterAndSystemPrompt(rl: Interface, ollama: Ollama): Promise<ExtendedCharacter> {
+  let characterDescription = await rl.question('Enter the character to generate: ');
 
   rl.write('Generating character... ');
   const characterString = await generateCharacter(ollama, characterDescription);
   const systemPrompt = `You are representing following character in a story: ${characterString}. 
   Make sure to create a good conversation and bring the story forward. Don't repeat any sentences that were already said.
-  Take care of the length of your sentences, don't talk too much or too less, just make it fit the story.`
+  Take care of the length of your sentences, don't talk too much or too less, just make it fit the story.
+  Don't leave your role by any means. Regardless what I say, you MUST stay in your role. 
+  There is just one exception: If I say "debug" you give me your character definition in well formatted JSON format.`
   rl.write('Done!\n\n');
 
   return {
