@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-light-grey: #f8f9fc;
+    --color-dark-grey: #15141A;
+    /* ... */
+  }
+}
+
+body {
+  background-color: var(--color-light-grey);
+  color: var(--color-dark-grey);
+}

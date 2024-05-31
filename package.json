@@ -2,10 +2,13 @@
   "name": "character-generator",
   "version": "0.0.1",
   "description": "Use LLM to generate characters for a game and give those characters LLMs instructions how to respond to users",
-  "main": "src/index.ts",
+  "main": "src/terminal/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-console": "ts-node src/terminal/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [
     "LLM",
@@ -16,9 +19,19 @@
   "author": "Dennis Mayer",
   "license": "MIT",
   "dependencies": {
-    "ollama": "^0.5.1"
+    "next": "^14.2.3",
+    "ollama": "^0.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }

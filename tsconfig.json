@@ -10,6 +10,32 @@
     /* Type Checking */
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-  }
+    "outDir": "/dist",
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@c/*": ["src/components/*"],
+      "@ui": ["src/components/UI"],
+      "@t/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+    },
+  },
+  "include": [
+    "./src/**/*",
+    "./src/types"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
