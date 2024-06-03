@@ -22,6 +22,6 @@ export interface Message {
 }
 
 export interface ExtendedCharacter extends Character {
-  characterString: string;
+  characterString?: string;
   messageHistory: Message[];
 }

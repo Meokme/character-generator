@@ -25,15 +25,32 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@c/*": ["src/components/*"],
-      "@ui": ["src/components/UI"],
-      "@t/*": ["src/types/*"],
-      "@utils/*": ["src/utils/*"],
+      "@c/*": [
+        "src/components/*"
+      ],
+      "@ui": [
+        "src/components/UI"
+      ],
+      "@t/*": [
+        "src/types/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@styles/*": [
+        "styles/*"
+      ]
     },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "./src/**/*",
-    "./src/types"
+    "./src/types",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
